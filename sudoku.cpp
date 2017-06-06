@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 
+
 Sudoku::Sudoku(const std::string& filename)
 {
   dataFile = filename;
@@ -79,4 +80,52 @@ void Sudoku::drawBoard()
              std::cout << "   -----+-----+-----" << std::endl;
            }
     }
+}
+
+std::pair<int, int> Sudoku::setFieldToFill()
+{
+  std::pair<int, int> field; // row, column
+
+  int row;
+  int column;
+
+  do {
+
+    char columnChar;
+
+    std::cout << "podaj pole do wypelnienia: [np.:A 1]";
+    std::cin >> columnChar >> row;
+    std::cin.clear();
+    std::cin.sync();
+
+    columnChar = std::toupper(columnChar);
+
+    std::cout << columnChar << "kolumna   \n";
+    std::cout << row << "rzad   \n";
+    column = columnChar - 64;
+
+    std::cout << column << "kolumna po konwersji   \n";
+    std::cout << row << "rzad   \n";
+
+  } while(!(row >= 1 && row <= 9 && column >=1 && column <= 9));
+
+  field.first = row - 1;
+  field.second = column - 1;
+
+  std::cout << field.first << "   ";
+  std::cout << field.second;
+  return field;
+}
+
+int Sudoku::setValue()
+{
+  int value;
+  std::cout << "podaj wartosc od 1 do 9: ";
+  std::cin >> value;
+  return value;
+}
+
+void Sudoku::fillingField(std::pair<int, int> field, int value)
+{
+  modifiableSudokuBoard[field.first][field.second] = value;
 }

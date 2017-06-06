@@ -10,5 +10,6 @@ int main()
     Sudoku s("board.txt");
     s.loadData();
     s.drawBoard();
+    s.setFieldToFill();
     return 0;
 }

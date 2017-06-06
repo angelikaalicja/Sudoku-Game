@@ -13,8 +13,10 @@ public:
     int sudokuBoard[9][9];
     int modifiableSudokuBoard[9][9];
     void drawBoard(); //rysowanie modifiableSudokuBoard
-    void fillingField(int row, int column); //wypelnienei  pojedycnzego pola jesli jest 0 w sudokuboard
-    int checkUp(bool isFilled); //sprawdzenei calej tablicy
+    std::pair<int, int> setFieldToFill();
+    int setValue();
+    void fillingField(std::pair<int, int> field, int value);
+    int checkUp(); //sprawdzenei calej tablicy jesli wszystkie pola sa wypelnione
 };
 
 #endif // SUDOKU_H
