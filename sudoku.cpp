@@ -98,33 +98,35 @@ std::pair<int, int> Sudoku::setFieldToFill()
 
   int row;
   int column;
-  bool isPosible = true;
+  bool isPosible;
 
-  std::cout << "\noryginalna tablica przed do while:\n";
+  std::cout << "\nmodyfikowalna tablica przed do while:\n";
   for (int row = 0; row < 9; row++)
   {
      for (int column = 0; column < 9; column++)
      {
-        std::cout << sudokuBoard[row][column] << " ";
+        std::cout << modifiableSudokuBoard[row][column] << " ";
      }
      std::cout << "\n";
    }
 
   do {
 
-    std::cout << "\noryginalna tablica w do while:\n";
-    for (int row = 0; row < 9; row++)
-    {
-       for (int column = 0; column < 9; column++)
-       {
-          std::cout << sudokuBoard[row][column] << " ";
-       }
-       std::cout << "\n";
-     }
+    isPosible = true;
+
+    // std::cout << "\noryginalna tablica w do while:\n";
+    // for (int row = 0; row < 9; row++)
+    // {
+    //    for (int column = 0; column < 9; column++)
+    //    {
+    //       std::cout << sudokuBoard[row][column] << " ";
+    //    }
+    //    std::cout << "\n";
+    //  }
 
     char columnChar;
 
-    std::cout << "podaj pole do wypelnienia: [np.:A 1]";
+    std::cout << "podaj pole do wypelnienia: [np.:A1]";
     std::cin >> columnChar >> row;
     std::cin.clear();
     std::cin.sync();
@@ -155,15 +157,15 @@ std::pair<int, int> Sudoku::setFieldToFill()
   field.first = row - 1;
   field.second = column - 1;
 
-  std::cout << "\noryginalna tablica po do while:\n";
-  for (int row = 0; row < 9; row++)
-  {
-     for (int column = 0; column < 9; column++)
-     {
-        std::cout << sudokuBoard[row][column] << " ";
-     }
-     std::cout << "\n";
-   }
+  // std::cout << "\noryginalna tablica po do while:\n";
+  // for (int row = 0; row < 9; row++)
+  // {
+  //    for (int column = 0; column < 9; column++)
+  //    {
+  //       std::cout << sudokuBoard[row][column] << " ";
+  //    }
+  //    std::cout << "\n";
+  //  }
 
   std::cout << field.first << " row\n";
   std::cout << field.second << " column\n";
@@ -175,8 +177,21 @@ std::pair<int, int> Sudoku::setFieldToFill()
 int Sudoku::setValue()
 {
   int value;
-  std::cout << "podaj wartosc od 1 do 9: ";
-  std::cin >> value;
+
+ do {
+
+   std::cout << "podaj wartosc od 1 do 9: ";
+   std::cin >> value;
+   std::cin.clear();
+   std::cin.sync();
+
+   if (value < 1 || value > 9)
+   {
+    std::cout << "Invalid choice!\n";
+   }
+
+ } while(value < 1 || value > 9);
+
   return value;
 }
 
