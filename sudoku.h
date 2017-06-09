@@ -22,7 +22,7 @@ public:
   bool checkBoard();
 
 private:
-//  bool checkValue(int row, int column);
+  bool checkValue(int row, int column);
 };
 
 #endif // SUDOKU_H
