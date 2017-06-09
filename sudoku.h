@@ -20,9 +20,9 @@ public:
   void fillingField(std::pair<int, int> field, int value);
   bool checkIfFilledOut();
   bool checkBoard();
-  
+
 private:
-  bool checkValue(int row, int column);
+//  bool checkValue(int row, int column);
 };
 
 #endif // SUDOKU_H

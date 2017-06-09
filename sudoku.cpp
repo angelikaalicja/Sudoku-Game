@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <set>
 
 
 Sudoku::Sudoku(const std::string& filename)
@@ -109,7 +110,7 @@ std::pair<int, int> Sudoku::setFieldToFill()
 
     if ((sudokuBoard[row - 1][column - 1]) != 0)
     {
-     std::cout << "Invalid choice (not changeable or invalid input)!\n";
+     std::cout << "Invalid choice (not changeable)!\n";
      isPosible = false;
     }
 
@@ -146,67 +147,56 @@ void Sudoku::fillingField(std::pair<int, int> field, int value)
   modifiableSudokuBoard[field.first][field.second] = value;
 }
 
-bool Sudoku::checkValue(int row, int column)
+bool Sudoku::checkBoard()
 {
-  int value = modifiableSudokuBoard[row][column];
+  std::set<int> correctGroup { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
   //checking rows
-  for (int i = 0; i < 9; i++)
+  for (int row = 0; row < 9; row++)
   {
-    if (i == column)
+    std::set<int> groupToReview;
+    for (int column = 0; column < 9; column++)
     {
-      continue;
+      groupToReview.insert(modifiableSudokuBoard[row][column]);
     }
-    if (value == modifiableSudokuBoard[row][i])
+    if (groupToReview != correctGroup)
     {
       return false;
     }
   }
 
   //checking columns
-  for (int i = 0; i < 9; i++)
+  for (int column = 0; column < 9; column++)
   {
-    if (i == row)
+    std::set<int> groupToReview;
+    for (int row = 0; row < 9; row++)
     {
-      continue;
+      groupToReview.insert(modifiableSudokuBoard[row][column]);
     }
-    if (value == modifiableSudokuBoard[i][column])
+    if (groupToReview != correctGroup)
     {
       return false;
     }
   }
 
-  //checking 3x3 square
-  int squareRow = row / 3;
-  int squareColumn = column / 3;
-
-  for (int i = squareRow * 3; i < squareRow * 3 + 3; i++)
+  //checking 3x3 squares
+  for (int boxRow = 0; boxRow < 3; boxRow++)
   {
-    for (int j = squareColumn * 3; j < squareColumn * 3 + 3; j++)
+    for (int boxColumn = 0; boxColumn < 3; boxColumn++)
     {
-      if (i == row && j == column)
-      {
-        continue;
-      }
-      if (value == modifiableSudokuBoard[i][j])
-      {
-        return false;
-      }
-    }
-  }
+      std::set<int> groupToReview;
 
-  return true;
-}
-
-bool Sudoku::checkBoard()
-{
-  for (int row = 0; row < 9; row++)
-  {
-    for (int column = 0; column < 9; column++)
-    {
-      if (checkValue(row, column) == false)
+      for (int i = boxRow * 3; i < boxRow * 3 + 3; i++)
       {
-        return false;
+        for (int j = boxColumn * 3; j < boxColumn * 3 + 3; j++)
+        {
+          groupToReview.insert(modifiableSudokuBoard[i][j]);
+        }
+      }
+
+      if (groupToReview != correctGroup)
+      {
+      return false;
       }
     }
   }
