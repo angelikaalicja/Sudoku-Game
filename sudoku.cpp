@@ -219,3 +219,73 @@ bool Sudoku::checkIfFilledOut()
 
   return true;
 }
+
+// C-style check board
+
+bool Sudoku::checkValueC(int row, int column)
+{
+  int value = modifiableSudokuBoard[row][column];
+
+  //checking rows
+  for (int i = 0; i < 9; i++)
+  {
+    if (i == column)
+    {
+      continue;
+    }
+    if (value == modifiableSudokuBoard[row][i])
+    {
+      return false;
+    }
+  }
+
+  //checking columns
+  for (int i = 0; i < 9; i++)
+  {
+    if (i == row)
+    {
+      continue;
+    }
+    if (value == modifiableSudokuBoard[i][column])
+    {
+      return false;
+    }
+  }
+
+  //checking 3x3 square
+  int squareRow = row / 3;
+  int squareColumn = column / 3;
+
+  for (int i = squareRow * 3; i < squareRow * 3 + 3; i++)
+  {
+    for (int j = squareColumn * 3; j < squareColumn * 3 + 3; j++)
+    {
+      if (i == row && j == column)
+      {
+        continue;
+      }
+      if (value == modifiableSudokuBoard[i][j])
+      {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+bool Sudoku::checkBoardC()
+{
+  for (int row = 0; row < 9; row++)
+  {
+    for (int column = 0; column < 9; column++)
+    {
+      if (checkValueC(row, column) == false)
+      {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
