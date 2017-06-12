@@ -382,34 +382,3 @@ bool Sudoku::solve()
     }
     return false;
 }
-
-// bool Sudoku::solve()
-// {
-//   for (int row = 0; row < 9; row++)
-//   {
-//     for (int column = 0; column < 9; column++)
-//     {
-//       if (sudokuBoard[row][column] != 0)
-//       {
-//       continue;
-//       }
-//       for (int value = 1; value <= 9; value++)
-//       {
-//         if (isPossible(row, column, value))
-//         {
-//           modifiableSudokuBoard[row][column] = value;
-//           if (solve())
-//           {
-//             return true;
-//           }
-//           else
-//           {
-//             modifiableSudokuBoard[row][column] = 0;
-//           }
-//         }
-//       }
-//       return false;
-//     }
-//   }
-//   return true;
-// }
