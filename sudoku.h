@@ -23,6 +23,13 @@ public:
   bool checkValueC(int row, int column);
   bool checkBoardC();
 
+  //solving
+  bool isInRow(int row, int value);
+  bool isInColumn(int column, int value);
+  bool isInBox(int row, int column, int value);
+  bool isPossible(int row, int column, int value);
+  bool findEmptyField(int &row, int &column);
+  bool solve();
 };
 
 #endif // SUDOKU_H

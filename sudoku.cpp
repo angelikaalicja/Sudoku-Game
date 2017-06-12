@@ -289,3 +289,127 @@ bool Sudoku::checkBoardC()
 
   return true;
 }
+
+bool Sudoku::isInRow(int row, int value)
+{
+  for (int column = 0; column < 9; column++)
+  {
+    if (modifiableSudokuBoard[row][column] == value)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool Sudoku::isInColumn(int column, int value)
+{
+  for (int row = 0; row < 9;  row++)
+  {
+    if (modifiableSudokuBoard[row][column] == value)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool Sudoku::isInBox(int row, int column, int value)
+{
+  int squareRow = row / 3;
+  int squareColumn = column / 3;
+
+  for (int i = squareRow * 3; i < squareRow * 3 + 3; i++)
+  {
+    for (int j = squareColumn * 3; j < squareColumn * 3 + 3; j++)
+    {
+      if (modifiableSudokuBoard[i][j] == value)
+      {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+bool Sudoku::isPossible(int row, int column, int value)
+{
+  if (isInRow(row, value) || isInColumn(column, value) || isInBox(row, column, value))
+  {
+    return false;
+  }
+  return true;
+}
+
+bool Sudoku::findEmptyField(int &row, int &column)
+{
+  for (row = 0; row < 9; row++)
+  {
+    for (column = 0; column <9; column++)
+    {
+      if (modifiableSudokuBoard[row][column] == 0)
+      {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+bool Sudoku::solve()
+{
+  int row, column;
+
+  if (!findEmptyField(row, column))
+  {
+    return true;
+  }
+
+  for (int value = 1; value <= 9; value++)
+    {
+      if (isPossible(row, column, value))
+      {
+        modifiableSudokuBoard[row][column] = value;
+        if (solve())
+        {
+          return true;
+        }
+        else
+        {
+          modifiableSudokuBoard[row][column] = 0;
+        }
+      }
+    }
+    return false;
+}
+
+// bool Sudoku::solve()
+// {
+//   for (int row = 0; row < 9; row++)
+//   {
+//     for (int column = 0; column < 9; column++)
+//     {
+//       if (sudokuBoard[row][column] != 0)
+//       {
+//       continue;
+//       }
+//       for (int value = 1; value <= 9; value++)
+//       {
+//         if (isPossible(row, column, value))
+//         {
+//           modifiableSudokuBoard[row][column] = value;
+//           if (solve())
+//           {
+//             return true;
+//           }
+//           else
+//           {
+//             modifiableSudokuBoard[row][column] = 0;
+//           }
+//         }
+//       }
+//       return false;
+//     }
+//   }
+//   return true;
+// }

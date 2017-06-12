@@ -10,19 +10,23 @@ int main()
 {
 
 
-  Sudoku s("board4.txt");
+  Sudoku s("board.txt");
   s.loadData();
   s.drawBoard();
 
-  while (s.checkIfFilledOut() == false)
-  {
-    std::pair<int, int> field;
-    int value;
-    field = s.setFieldToFill();
-    value = s.setValue();
-    s.fillingField(field, value);
-    s.drawBoard();
-  }
+  std::cout << "solving..." << std::endl;
+  s.solve();
+  s.drawBoard();
+
+  // while (s.checkIfFilledOut() == false)
+  // {
+  //   std::pair<int, int> field;
+  //   int value;
+  //   field = s.setFieldToFill();
+  //   value = s.setValue();
+  //   s.fillingField(field, value);
+  //   s.drawBoard();
+  // }
 
 // measuring elapsed time for STL <set>
 
